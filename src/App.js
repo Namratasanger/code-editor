@@ -1,5 +1,5 @@
 import * as esbuild from "esbuild-wasm";
-import { useState, seEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function App() {
   const [input, setInput] = useState("");
