@@ -1,6 +1,7 @@
 import * as esbuild from "esbuild-wasm";
 import { useState, useEffect } from "react";
 import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin.ts";
+import { fetchPlugin } from "./plugins/fetch-plugin.ts";
 
 function App() {
   const [input, setInput] = useState("");
@@ -16,12 +17,14 @@ function App() {
     startService();
   }, []);
 
+  // kick off bundling process
   const handleClick = async () => {
     const result = await esbuild.build({
       entryPoints: ["index.js"], //entry point for the build
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()],
+      // interconnecting the input that will be entered in the text box
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         "process.env.NODE_ENV": '"production"', // setting up the environemtn for bundling
         global: "window", // replace global with window
