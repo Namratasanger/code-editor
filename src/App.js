@@ -1,12 +1,10 @@
 import * as esbuild from "esbuild-wasm";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin.ts";
 
 function App() {
   const [input, setInput] = useState("");
   const [code, setCode] = useState("");
-
-  const ref = useRef();
 
   const startService = async () => {
     await esbuild.initialize({
@@ -20,10 +18,14 @@ function App() {
 
   const handleClick = async () => {
     const result = await esbuild.build({
-      entryPoints: ["index.js"],
+      entryPoints: ["index.js"], //entry point for the build
       bundle: true,
       write: false,
       plugins: [unpkgPathPlugin()],
+      define: {
+        "process.env.NODE_ENV": '"production"', // setting up the environemtn for bundling
+        global: "window", // replace global with window
+      },
     });
 
     console.log(result?.outputFiles[0]);
