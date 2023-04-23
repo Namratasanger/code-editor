@@ -11,9 +11,7 @@ export const fetchPlugin = (inputCode: string) =>{
     return {
         name: 'fetch-plugin',
         setup(build: esbuild.PluginBuild){
-        build.onLoad({ filter: /.*/ }, async (args: any) => {
-            console.log('onLoad', args);
-    
+        build.onLoad({ filter: /.*/ }, async (args: any) => {    
             if (args.path === 'index.js') {
               return {
                 loader: 'jsx',

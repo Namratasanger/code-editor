@@ -26,7 +26,7 @@ function App() {
       // interconnecting the input that will be entered in the text box
       plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
-        "process.env.NODE_ENV": '"production"', // setting up the environemtn for bundling
+        "process.env.NODE_ENV": '"production"', // setting up the environment for bundling
         global: "window", // replace global with window
       },
     });
