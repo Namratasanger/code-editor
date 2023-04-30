@@ -1,6 +1,6 @@
 import * as esbuild from "esbuild-wasm";
 import axios from "axios";
-import localForage from "localforage";
+import * as localForage from "localforage";
 
 // using local forage to deal with indexDB
 const fileCache = localForage.createInstance({
@@ -11,7 +11,8 @@ export const fetchPlugin = (inputCode: string) => {
   return {
     name: "fetch-plugin",
     setup(build: esbuild.PluginBuild) {
-      build.onLoad({ filter: /^index\.js$/ }, async (args: any) => {
+      build.onLoad({ filter: /(^index\.js$)/ }, async (args: any) => {
+        console.log(args);
         return {
           loader: "jsx",
           contents: inputCode,
@@ -61,6 +62,7 @@ export const fetchPlugin = (inputCode: string) => {
       build.onLoad({ filter: /.*/ }, async (args: any) => {
         // file not found use axios to fetch the file
         const { data, request } = await axios.get(args.path);
+        console.log(args);
 
         const result: esbuild.OnLoadResult = {
           loader: "jsx",
