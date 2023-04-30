@@ -1,4 +1,3 @@
-import "bulmaswatch/superhero/bulmaswatch.min.css";
 import { useEffect } from "react";
 import CodeCell from "./components/code-cell/code-cell.tsx";
 import * as esbuild from "esbuild-wasm";

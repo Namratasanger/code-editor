@@ -35,8 +35,6 @@ const activateMonacoJSXHighlighter = async (monacoEditor, monaco) => {
   console.log(disposeJSXHighlighting);
   // Enhance monaco's editor.action.commentLine with JSX commenting and get its disposer
   let disposeJSXCommenting = monacoJSXHighlighter.addJSXCommentCommand();
-  // Optional: customize the color font in JSX texts (style class JSXElement.JSXText.tastyPizza from ./code-editor.css)
-  JSXTypes.JSXText.options.inlineClassName = "JSXElement.JSXText.tastyPizza";
 
   return { monacoJSXHighlighter, disposeJSXHighlighting, disposeJSXCommenting };
 };

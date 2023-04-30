@@ -8,6 +8,7 @@ function CodeCell() {
   const [code, setCode] = useState<string>("");
 
   const handleClick: () => void = async () => {
+    // kick off the bundling process by passing the input code that needs to be bundled
     const output = await bundle(input);
     setCode(output);
   };
