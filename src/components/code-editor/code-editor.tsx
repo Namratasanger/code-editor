@@ -6,7 +6,7 @@ import * as prettier from "prettier";
 import * as Parser from "prettier/parser-babel";
 import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
-import MonacoJSXHighlighter, { JSXTypes } from "monaco-jsx-highlighter";
+import MonacoJSXHighlighter from "monaco-jsx-highlighter";
 
 interface CodeEditorProps {
   initialValue: string;
@@ -81,7 +81,7 @@ function CodeEditor(props: CodeEditorProps) {
         onMount={activateMonacoJSXHighlighter}
         theme="vs-dark"
         language="javascript"
-        height="500px"
+        height="100%"
         options={{
           wordWrap: "on",
           minimap: { enabled: false },

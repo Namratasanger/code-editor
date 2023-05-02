@@ -4,19 +4,25 @@ import { fetchPlugin } from "./plugins/fetch-plugin";
 
 const bundle = async (rawCode: string) => {
   // kick off bundling process
-  const result = await esbuild.build({
-    entryPoints: ["index.js"], //entry point for the build
-    bundle: true,
-    write: false,
-    // interconnecting the input that will be entered in the text box
-    plugins: [unpkgPathPlugin(), fetchPlugin(rawCode)],
-    define: {
-      "process.env.NODE_ENV": '"production"', // setting up the environment for bundling
-      global: "window", // replace global with window
-    },
-  });
+  try {
+    const result = await esbuild.build({
+      entryPoints: ["index.js"], //entry point for the build
+      bundle: true,
+      write: false,
+      plugins: [unpkgPathPlugin(), fetchPlugin(rawCode)], // interconnecting the input that will be entered in the text box
+      define: {
+        "process.env.NODE_ENV": '"production"', // setting up the environment for bundling
+        global: "window", // replace global with window
+      },
+    });
 
-  return result.outputFiles[0].text;
+    return {
+      code: result.outputFiles[0].text,
+      error: "",
+    };
+  } catch (err) {
+    return { code: "", error: err.message };
+  }
 };
 
 export default bundle;
