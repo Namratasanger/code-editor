@@ -3,6 +3,7 @@ const webpack = require("webpack");
 module.exports = function override(config, env) {
   config.resolve.fallback = {
     ...config.resolve.fallback,
+    "process/browser": require.resolve("process/browser"),
     stream: require.resolve("stream-browserify"),
     buffer: require.resolve("buffer"),
   };
