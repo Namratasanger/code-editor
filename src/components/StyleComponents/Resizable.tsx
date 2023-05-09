@@ -1,13 +1,13 @@
 import "./resizable.css";
-import { useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { ResizableBox, ResizableBoxProps } from "react-resizable";
+import { JsxElement } from "typescript";
 
 interface ResizableProps {
   direction: "horizontal" | "vertical";
-  children: any;
 }
 
-const Resizable = (props: ResizableProps) => {
+function Resizable(props: PropsWithChildren<ResizableProps>): JSX.Element {
   const { direction, children } = props;
 
   const [innerHeight, setInnerHeight] = useState(window.innerHeight);
@@ -62,6 +62,6 @@ const Resizable = (props: ResizableProps) => {
     // Resizable box doesn't supports % width or height
     <ResizableBox {...resizableProps}>{children}</ResizableBox>
   );
-};
+}
 
 export default Resizable;

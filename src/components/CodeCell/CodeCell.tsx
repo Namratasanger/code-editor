@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
-import CodeEditor from "../code-editor/code-editor";
-import Preview from "../preview/preview";
+import CodeEditor from "../CodeEditor/CodeEditor";
+import Preview from "../Preview/Preview";
 import bundle from "../../bundler";
-import Resizable from "../styled-components/resizable";
+import Resizable from "../StyleComponents/Resizable";
+import { CellProperties } from "../../state-management";
+import { useActions } from "../../hooks/use-actions";
 
-function CodeCell() {
-  const [input, setInput] = useState<string>("");
+interface CodeCellProps {
+  cell: CellProperties;
+}
+
+function CodeCell(props: CodeCellProps) {
+  const {
+    cell: { id, data },
+  } = props;
   const [error, setError] = useState("");
   const [code, setCode] = useState<string>("");
+
+  const { updateCell } = useActions();
 
   useEffect(() => {
     const timer = setTimeout(async () => {
       // kick off the bundling process by passing the input code that needs to be bundled
-      const output = await bundle(input);
+      const output = await bundle(data);
       setCode(output.code);
       setError(output.error);
       //execute the code only after 3 sec
@@ -21,21 +31,17 @@ function CodeCell() {
     return () => {
       clearTimeout(timer);
     };
-  }, [input]);
+  }, [data]);
 
   const onChange: (inputCode: string) => void = (inputCode: string) => {
-    setInput(inputCode);
+    updateCell(id, inputCode);
   };
 
   return (
     <Resizable direction="vertical">
       <div style={{ height: "100%", display: "flex", flexDirection: "row" }}>
         <Resizable direction="horizontal">
-          <CodeEditor
-            initialValue="// Write your code here"
-            onChange={onChange}
-            value={input}
-          />
+          <CodeEditor initialValue={data} onChange={onChange} value={data} />
         </Resizable>
         {/* adding iframe to handle the code execution safely*/}
         <Preview code={code} error={error} />
