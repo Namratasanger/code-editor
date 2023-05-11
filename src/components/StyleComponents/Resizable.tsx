@@ -1,7 +1,6 @@
 import "./resizable.css";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { ResizableBox, ResizableBoxProps } from "react-resizable";
-import { JsxElement } from "typescript";
 
 interface ResizableProps {
   direction: "horizontal" | "vertical";

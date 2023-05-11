@@ -30,7 +30,7 @@ const cellReducer = (
 
       // validate the target index is not going out of bound
       if (targetIndex < 0 || targetIndex > state.order.length - 1) {
-        return;
+        return state;
       }
       // swap the values based on the direction
       let newOrder = [...state.order];
@@ -59,12 +59,10 @@ const cellReducer = (
       let { id } = action.payload;
       let newData = { ...state.data };
       delete newData[id];
-      let newOrder = [...state.order].filter((value) => id !== value);
+      let newOrder = [...state.order.filter((value) => id !== value)];
       return {
         ...state,
-        order: {
-          ...newOrder,
-        },
+        order: [...newOrder],
         data: {
           ...newData,
         },
