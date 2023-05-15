@@ -39,7 +39,7 @@ const activateMonacoJSXHighlighter = async (monacoEditor, monaco) => {
   return { monacoJSXHighlighter, disposeJSXHighlighting, disposeJSXCommenting };
 };
 
-function CodeEditor(props: CodeEditorProps) {
+function CodeEditor(props: CodeEditorProps): React.ReactElement {
   const { onChange, initialValue, value } = props;
 
   const [editorValue, setEditorValue] = useState<string>(value);

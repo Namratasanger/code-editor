@@ -1,3 +1,4 @@
+import * as React from "react";
 import "./preview.css";
 import { useEffect, useRef } from "react";
 
@@ -37,7 +38,7 @@ const html = `
 </html>
   `;
 
-function Preview(props: PreviewProps): JSX.Element {
+function Preview(props: PreviewProps): React.ReactElement {
   const { code, error } = props;
   const iframeRef = useRef<any>();
 
