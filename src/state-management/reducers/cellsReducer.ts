@@ -68,7 +68,7 @@ const cellReducer = (
         },
       };
     }
-    case ActionType.INSERT_CELL_BEFORE: {
+    case ActionType.INSERT_CELL_AFTER: {
       const { id, type } = action.payload;
 
       // generate the cell data
@@ -81,9 +81,9 @@ const cellReducer = (
       const index = state.order.findIndex((data) => data === id);
       let newOrder = [...state.order];
       if (index < 0) {
-        newOrder.push(cellData.id);
+        newOrder.unshift(cellData.id);
       } else {
-        newOrder.splice(index, 0, cellData.id);
+        newOrder.splice(index + 1, 0, cellData.id);
       }
       return {
         ...state,

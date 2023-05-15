@@ -20,13 +20,14 @@ function CodeCell(props: CodeCellProps) {
   const { updateCell } = useActions();
 
   useEffect(() => {
+    // debouncing the code execution
     const timer = setTimeout(async () => {
       // kick off the bundling process by passing the input code that needs to be bundled
       const output = await bundle(data);
       setCode(output.code);
       setError(output.error);
-      //execute the code only after 3 sec
-    }, 750);
+      //execute the code only after 1 sec od delay
+    }, 1);
 
     return () => {
       clearTimeout(timer);
@@ -39,7 +40,14 @@ function CodeCell(props: CodeCellProps) {
 
   return (
     <Resizable direction="vertical">
-      <div style={{ height: "100%", display: "flex", flexDirection: "row" }}>
+      <div
+        style={{
+          // allocate space to reisze bar
+          height: "calc(100% - 8px)",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
         <Resizable direction="horizontal">
           <CodeEditor initialValue={data} onChange={onChange} value={data} />
         </Resizable>

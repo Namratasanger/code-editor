@@ -2,6 +2,7 @@ import * as React from "react";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
 import { CellProperties } from "../../state-management";
 import CellListItem from "./CellListItem";
+import AddCell from "../AddCell/AddCell";
 
 // lists of cells to the users
 // fetch the list of cells from the redux store
@@ -13,10 +14,18 @@ function CellList(): React.ReactNode {
   const renderCells = (
     <>
       {cells?.map((cell: CellProperties) => (
-        <CellListItem cell={cell} key={cell.id} />
+        <React.Fragment key={cell.id}>
+          <CellListItem cell={cell} />
+          <AddCell previousCellId={cell.id} />
+        </React.Fragment>
       ))}
     </>
   );
-  return <div>{renderCells}</div>;
+  return (
+    <div>
+      <AddCell forceVisible={cells.length === 0} previousCellId={null} />
+      {renderCells}
+    </div>
+  );
 }
 export default CellList;
