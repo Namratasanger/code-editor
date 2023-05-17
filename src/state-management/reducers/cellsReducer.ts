@@ -55,6 +55,7 @@ const cellReducer = (
         },
       };
     }
+
     case ActionType.DELETE_CELL: {
       let { id } = action.payload;
       let newData = { ...state.data };

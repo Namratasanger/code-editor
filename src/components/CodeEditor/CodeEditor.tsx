@@ -32,7 +32,6 @@ const activateMonacoJSXHighlighter = async (monacoEditor, monaco) => {
       undefined,
       () => {}
     );
-  console.log(disposeJSXHighlighting);
   // Enhance monaco's editor.action.commentLine with JSX commenting and get its disposer
   let disposeJSXCommenting = monacoJSXHighlighter.addJSXCommentCommand();
 
