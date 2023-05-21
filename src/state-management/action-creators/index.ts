@@ -63,7 +63,6 @@ export const createBundle = (id: string, inputCode: string) => {
 
     const result = await bundle(inputCode);
 
-    debugger;
     dispatch({
       type: ActionType.BUNDLE_COMPLETE,
       payload: {
