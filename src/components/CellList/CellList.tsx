@@ -22,7 +22,7 @@ function CellList(): React.ReactNode {
     </>
   );
   return (
-    <div>
+    <div className="cell-list">
       <AddCell forceVisible={cells.length === 0} previousCellId={null} />
       {renderCells}
     </div>

@@ -11,7 +11,7 @@ export const fetchPlugin = (inputCode: string) => {
   return {
     name: "fetch-plugin",
     setup(build: esbuild.PluginBuild) {
-      build.onLoad({ filter: /(^index\.js$)/ }, async (args: any) => {
+      build.onLoad({ filter: /(^index\.js$)/ }, () => {
         return {
           loader: "jsx",
           contents: inputCode,
@@ -43,9 +43,11 @@ export const fetchPlugin = (inputCode: string) => {
           .replace(/'/g, "\\'");
 
         // adding a style element in the head tag
-        const contents = `const style = document.createElementBy('style');
-              style.innerText = '${escaped}';
-              document.head.appendChild(style);`;
+        const contents = `
+          const style = document.createElement('style');
+          style.innerText = '${escaped}';
+          document.head.appendChild(style);
+        `;
 
         const result: esbuild.OnLoadResult = {
           loader: "jsx",
@@ -61,7 +63,6 @@ export const fetchPlugin = (inputCode: string) => {
       build.onLoad({ filter: /.*/ }, async (args: any) => {
         // file not found use axios to fetch the file
         const { data, request } = await axios.get(args.path);
-        console.log(args);
 
         const result: esbuild.OnLoadResult = {
           loader: "jsx",
