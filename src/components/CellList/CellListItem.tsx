@@ -1,4 +1,4 @@
-import "./cell-list-item.css";
+import "./cell-list.css";
 import { CellProperties } from "../../state-management";
 import TextEditor from "../TextEditor/TextEditor";
 import * as React from "react";

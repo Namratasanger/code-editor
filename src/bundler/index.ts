@@ -27,6 +27,8 @@ const bundle = async (rawCode: string) => {
         "process.env.NODE_ENV": JSON.stringify("production"), // setting up the environment for bundling
         global: "window", // replace global with window
       },
+      jsxFactory: "_React.createElement", // convert React.createElement to _React.createElement
+      jsxFragment: "_React.Fragment", // convert React.Fragment to _React.Fragment
     });
 
     return {
