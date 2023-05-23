@@ -1,0 +1,19 @@
+{
+  "name": "code-note-cli",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "tsc --watch --preserveWatchOutput"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "code-note-local-api": "^1.0.0",
+    "commander": "^10.0.1"
+  },
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^20.2.3",
+    "typescript": "^5.0.4"
+  }
+}
