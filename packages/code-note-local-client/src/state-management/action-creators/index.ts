@@ -1,4 +1,5 @@
 import { ActionType } from "../action-types";
+import axios from "axios";
 import {
   UpdateCellAction,
   DeleteCellAction,
@@ -6,9 +7,10 @@ import {
   InsertCellAfterAction,
   Actions,
 } from "../actions";
-import { CellTypes, Direction } from "../cell";
+import { CellProperties, CellTypes, Direction } from "../cell";
 import { Dispatch } from "redux";
 import bundle from "../../bundler/index";
+import { RootState } from "../reducers";
 
 export const updateCell = (id: string, newData: string): UpdateCellAction => {
   return {
@@ -72,5 +74,64 @@ export const createBundle = (id: string, inputCode: string) => {
         },
       },
     });
+  };
+};
+
+export const fetchCells = () => {
+  return async (dispatch: Dispatch<Actions>) => {
+    dispatch({
+      type: ActionType.FETCH_CELLS,
+    });
+    try {
+      const {
+        status,
+        cellList,
+        message = "Successfully fetched the list of cells",
+      }: {
+        status: number;
+        cellList: CellProperties[];
+        message: string;
+      } = await axios.get("/cells");
+
+      if (status === 200) {
+        dispatch({ type: ActionType.FETCH_CELLS_COMPLETE, payload: cellList });
+      } else {
+        dispatch({
+          type: ActionType.FETCH_CELLS_ERROR,
+          payload: {
+            status,
+            message,
+          },
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: ActionType.FETCH_CELLS_ERROR,
+        payload: {
+          status: 422,
+          message: `Some error occurred while fetching the cells. More error information : ${err.messgae}`,
+        },
+      });
+    }
+  };
+};
+
+export const saveCells = () => {
+  return async (dispatch: Dispatch<Actions>, getState: () => RootState) => {
+    const {
+      cells: { data, order },
+    } = getState();
+
+    const cells: CellProperties[] = order.map((id) => data[id]);
+    try {
+      await axios.post("/cells", { cells });
+    } catch (err) {
+      dispatch({
+        type: ActionType.SAVE_CELLS_ERROR,
+        payload: {
+          message: `Something went wrong. More information : ${err.message}`,
+        },
+      });
+    }
   };
 };

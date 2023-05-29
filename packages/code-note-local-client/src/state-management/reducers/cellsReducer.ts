@@ -23,6 +23,40 @@ const cellReducer = (
   action: Actions
 ): CellState => {
   switch (action.type) {
+    case ActionType.SAVE_CELLS_ERROR: {
+      return {
+        ...state,
+        error: action?.payload?.message || "Something went wrong",
+      };
+    }
+    case ActionType.FETCH_CELLS: {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    }
+    case ActionType.FETCH_CELLS_COMPLETE: {
+      const order = action?.payload?.map((cell) => cell.id);
+      const data = action?.payload?.reduce((acc, cell) => {
+        acc[cell.id] = cell;
+        return acc;
+      }, {} as CellState["data"]);
+
+      return {
+        ...state,
+        order: [...order],
+        data: { ...data },
+      };
+    }
+    case ActionType.FETCH_CELLS_ERROR: {
+      const errorMessage = action?.payload?.message || "Something went wrong";
+      return {
+        ...state,
+        loading: false,
+        error: errorMessage,
+      };
+    }
     case ActionType.MOVE_CELL: {
       const { id, direction } = action.payload;
       let index = state.order.findIndex((data) => data === id);
