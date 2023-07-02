@@ -85,7 +85,7 @@ export const fetchCells = () => {
     try {
       const {
         status,
-        cellList,
+        cellList = [],
         message = "Successfully fetched the list of cells",
       }: {
         status: number;
@@ -105,6 +105,7 @@ export const fetchCells = () => {
         });
       }
     } catch (err) {
+      console.log(err);
       dispatch({
         type: ActionType.FETCH_CELLS_ERROR,
         payload: {
@@ -116,13 +117,14 @@ export const fetchCells = () => {
   };
 };
 
-export const saveCells = () => {
-  return async (dispatch: Dispatch<Actions>, getState: () => RootState) => {
+export const saveCells =
+  () => async (dispatch: Dispatch<Actions>, getState: () => RootState) => {
     const {
       cells: { data, order },
     } = getState();
 
     const cells: CellProperties[] = order.map((id) => data[id]);
+    console.log("Save cells : ", cells);
     try {
       await axios.post("/cells", { cells });
     } catch (err) {
@@ -134,4 +136,3 @@ export const saveCells = () => {
       });
     }
   };
-};

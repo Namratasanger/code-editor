@@ -37,6 +37,7 @@ const cellReducer = (
       };
     }
     case ActionType.FETCH_CELLS_COMPLETE: {
+      console.log("Payload : ", action.payload);
       const order = action?.payload?.map((cell) => cell.id);
       const data = action?.payload?.reduce((acc, cell) => {
         acc[cell.id] = cell;
@@ -112,6 +113,8 @@ const cellReducer = (
         type,
         id: cellIdentifier(),
       };
+
+      console.log("Insert cell after : ", action);
       // add the cell before the given id or if id is null then add the cell at the very end
       const index = state.order.findIndex((data) => data === id);
       let newOrder = [...state.order];

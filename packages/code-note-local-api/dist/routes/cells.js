@@ -26,7 +26,7 @@ function createCellsRouter(filename, dir) {
             const result = yield promises_1.default.readFile(fullPath, { encoding: "utf-8" });
             // Parse a list of cells out of it
             // Send list of cells back to browser
-            console.log(JSON.parse(result));
+            console.log("Result", JSON.parse(result));
             response.send({
                 status: 200,
                 cellList: JSON.parse(result),
@@ -34,8 +34,7 @@ function createCellsRouter(filename, dir) {
             });
         }
         catch (err) {
-            // Inspect the error, see if it says that file doesn't exists
-            // Error no entity
+            // ENOENT = Error no entity. Inspect the error, see if it says that file doesn't exists
             if (err.code === "ENOENT") {
                 //If it does not exists. add in a default list of cells
                 yield promises_1.default.writeFile(fullPath, "[]", "utf-8");
@@ -57,10 +56,9 @@ function createCellsRouter(filename, dir) {
         }
     }));
     router.post("/cells", (request, response) => __awaiter(this, void 0, void 0, function* () {
-        // Make sure the file exists
-        // If not, create it
         // Take the list of cells from the request obj
         // serialize obj
+        console.log(request.body);
         const { cells } = request.body;
         // Write the cells into the file
         console.log(fullPath, cells);

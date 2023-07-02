@@ -74,6 +74,7 @@ export interface SaveCellsErrorAction {
     message: string;
   };
 }
+
 export type Actions =
   | MoveCellAction
   | UpdateCellAction

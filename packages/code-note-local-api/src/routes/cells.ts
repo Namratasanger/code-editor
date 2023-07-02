@@ -20,16 +20,15 @@ export function createCellsRouter(filename: string, dir: string) {
 
       // Parse a list of cells out of it
       // Send list of cells back to browser
-      console.log(JSON.parse(result));
+      console.log("Result", JSON.parse(result));
 
       response.send({
         status: 200,
-        cellList: JSON.parse(result),
+        cellList: JSON.parse(result), //parse list of cells from the file
         message: "Successfully fetched the cell list",
       });
     } catch (err: any) {
-      // Inspect the error, see if it says that file doesn't exists
-      // Error no entity
+      // ENOENT = Error no entity. Inspect the error, see if it says that file doesn't exists
       if (err.code === "ENOENT") {
         //If it does not exists. add in a default list of cells
         await fs.writeFile(fullPath, "[]", "utf-8");
@@ -51,11 +50,9 @@ export function createCellsRouter(filename: string, dir: string) {
   });
 
   router.post("/cells", async (request, response) => {
-    // Make sure the file exists
-    // If not, create it
-
     // Take the list of cells from the request obj
     // serialize obj
+    console.log(request.body);
     const { cells }: { cells: CellProperties[] } = request.body;
 
     // Write the cells into the file

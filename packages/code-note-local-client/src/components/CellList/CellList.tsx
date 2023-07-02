@@ -9,28 +9,29 @@ import { useActions } from "../../hooks/use-actions";
 
 function CellList(): React.ReactNode {
   // fetch the list of cells from the redux store
-  const cells = useTypedSelector(({ cells: { order, data } }) =>
-    order.map((id: string) => data[id])
-  );
+  const cells = [
+    ...useTypedSelector(({ cells: { order, data } }) =>
+      order.map((id: string) => data[id])
+    ),
+  ];
 
-  const { fetchCells, saveCells } = useActions();
+  const { fetchCells } = useActions();
 
   useEffect(() => {
     fetchCells();
   }, []);
 
-  useEffect(() => {
-    saveCells();
-  }, [JSON.stringify(cells)]);
-
   const renderCells = (
     <>
-      {cells?.map((cell: CellProperties) => (
-        <Fragment key={cell.id}>
-          <CellListItem cell={cell} />
-          <AddCell previousCellId={cell.id} />
-        </Fragment>
-      ))}
+      {cells?.map((cell: CellProperties) => {
+        console.log("Cell individual data : ", cell);
+        return (
+          <Fragment key={cell.id}>
+            <CellListItem cell={cell} />
+            <AddCell previousCellId={cell.id} />
+          </Fragment>
+        );
+      })}
     </>
   );
   return (
