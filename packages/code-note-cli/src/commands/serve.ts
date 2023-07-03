@@ -1,6 +1,6 @@
 import path from "path";
 import { Command } from "commander";
-import { serve } from "code-note-local-api";
+import { serve } from "@codenote/server";
 
 const isProduction = process.env.NODE_ENV === "production";
 

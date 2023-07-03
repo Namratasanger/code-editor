@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.serveCommand = void 0;
 const path_1 = __importDefault(require("path"));
 const commander_1 = require("commander");
-const code_note_local_api_1 = require("code-note-local-api");
+const server_1 = require("@codenote/server");
 const isProduction = process.env.NODE_ENV === "production";
 exports.serveCommand = new commander_1.Command()
     .command("serve [filename]")
@@ -28,7 +28,7 @@ exports.serveCommand = new commander_1.Command()
         // join current working directory file path and the directory path
         const dir = path_1.default.join(process.cwd(), path_1.default.dirname(filename));
         //path.basename(filename) : extract only the file name
-        yield (0, code_note_local_api_1.serve)(parseInt(options.port), path_1.default.basename(filename), dir, !isProduction);
+        yield (0, server_1.serve)(parseInt(options.port), path_1.default.basename(filename), dir, !isProduction);
         console.log(`Opened ${filename}. Navigation to http://localhost:${options.port} to edit the the file.`);
     }
     catch (err) {

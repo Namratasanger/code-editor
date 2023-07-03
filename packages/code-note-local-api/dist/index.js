@@ -24,7 +24,7 @@ const serve = (port, filename, dir, useProxy) => {
     else {
         // when a user's have installed our codenote cli and running the application on their system
         // require.resolve will apply the nodes path resolution algorithm to figure out the file location of the index.html file
-        const packagePath = require.resolve("code-note-local-client/build/index.html");
+        const packagePath = require.resolve("@codenote/ui/build/index.html");
         // server the build folder then
         app.use(express_1.default.static(path_1.default.dirname(packagePath)));
     }
