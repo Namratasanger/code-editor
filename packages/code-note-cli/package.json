@@ -1,5 +1,5 @@
 {
-  "name": "codenote",
+  "name": "jscodestation",
   "version": "1.0.0",
   "files": [
     "dist"
@@ -16,14 +16,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@codenote/ui": "^1.0.0"
+    "@jscodestation/ui": "^1.0.0"
   },
   "description": "",
   "devDependencies": {
-    "@codenote/server": "^1.0.0",
+    "@jscodestation/server": "^1.0.0",
     "@types/node": "^20.2.3",
     "commander": "^10.0.1",
     "esbuild": "^0.18.11",
     "typescript": "^5.0.4"
-  }
+  },
+  "gitHead": "d0fcdfc2f3c712a7afa208eab831eb5d4c9c731d"
 }

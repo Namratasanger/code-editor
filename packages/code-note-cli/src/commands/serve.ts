@@ -1,6 +1,6 @@
 import path from "path";
 import { Command } from "commander";
-import { serve } from "@codenote/server";
+import { serve } from "@jscodestation/server";
 
 const isProduction = process.env.NODE_ENV === "production";
 

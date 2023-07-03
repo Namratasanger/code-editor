@@ -1,5 +1,5 @@
 {
-  "name": "@codenote/ui",
+  "name": "@jscodestation/ui",
   "version": "1.0.0",
   "files": [
     "build"
@@ -71,5 +71,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "gitHead": "d0fcdfc2f3c712a7afa208eab831eb5d4c9c731d"
 }
