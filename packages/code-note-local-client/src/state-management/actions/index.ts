@@ -1,5 +1,5 @@
 import { ActionType } from "../action-types";
-import { CellTypes, Direction } from "../cell";
+import { CellTypes, CellProperties, Direction } from "../cell";
 
 // Reorder a cell
 export interface MoveCellAction {
@@ -51,10 +51,38 @@ export interface BundleCompleteAction {
   };
 }
 
+export interface FetchCellsAction {
+  type: ActionType.FETCH_CELLS;
+}
+
+export interface FetchCellsCompleteAction {
+  type: ActionType.FETCH_CELLS_COMPLETE;
+  payload: CellProperties[];
+}
+
+export interface FetchCellsErrorAction {
+  type: ActionType.FETCH_CELLS_ERROR;
+  payload: {
+    status: number;
+    message: string;
+  };
+}
+
+export interface SaveCellsErrorAction {
+  type: ActionType.SAVE_CELLS_ERROR;
+  payload: {
+    message: string;
+  };
+}
+
 export type Actions =
   | MoveCellAction
   | UpdateCellAction
   | DeleteCellAction
   | InsertCellAfterAction
   | BundleCompleteAction
-  | BundleStartAction;
+  | BundleStartAction
+  | FetchCellsAction
+  | FetchCellsCompleteAction
+  | FetchCellsErrorAction
+  | SaveCellsErrorAction;

@@ -1,10 +1,17 @@
 {
-  "name": "code-note-local-api",
+  "name": "@codenote/server",
   "version": "1.0.0",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.js",
   "types": "dist/index.js",
   "scripts": {
-    "start": "tsc --watch --preserveWatchOutput"
+    "start": "tsc --watch --preserveWatchOutput",
+    "prepublishOnly": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +23,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@codenote/ui": "^0.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6"

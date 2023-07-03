@@ -1,23 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import reducers from "./reducers";
-import { ActionType } from "./action-types";
+import { saveCellsMiddleWare } from "./middlewares/savecells-middleware";
 
-export const store = configureStore({ reducer: reducers });
-
-store.dispatch({
-  type: ActionType.INSERT_CELL_AFTER,
-  payload: {
-    id: null,
-    type: "code",
-    data: "// Write your code here",
-  },
-});
-
-store.dispatch({
-  type: ActionType.INSERT_CELL_AFTER,
-  payload: {
-    id: null,
-    type: "text",
-    data: "Readme file",
-  },
+export const store = configureStore({
+  reducer: reducers,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(saveCellsMiddleWare),
 });
