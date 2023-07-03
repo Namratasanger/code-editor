@@ -20,10 +20,10 @@
   },
   "description": "",
   "devDependencies": {
-    "@types/node": "^20.2.3",
-    "esbuild": "^0.18.11",
-    "typescript": "^5.0.4",
     "@codenote/server": "^1.0.0",
-    "commander": "^10.0.1"
+    "@types/node": "^20.2.3",
+    "commander": "^10.0.1",
+    "esbuild": "^0.18.11",
+    "typescript": "^5.0.4"
   }
 }
